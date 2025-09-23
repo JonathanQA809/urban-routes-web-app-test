@@ -160,6 +160,7 @@ class UrbanRoutesPage:
                     digits += ch
             return int(digits) if digits else 0
 
+
     def order_ice_cream_twice(self):
         for _ in range(2):
             self.click_order_ice_cream()

@@ -159,6 +159,7 @@ class TestUrbanRoutes:
         print("function created for car search model appears")
         pass
 
+
     @classmethod
     def teardown_class(cls):
         cls.driver.quit()
