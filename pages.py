@@ -136,10 +136,8 @@ class UrbanRoutesPage:
         return switches[0].get_property('checked')
 
     # Ordering 2 Ice Creams (Supportive Taxi)
-    ICE_CREAM_LABEL_LOCATOR = (By.XPATH, '//div[contains(text(), "Ice cream")]')
     ICE_CREAM_ADD_BUTTON_LOCATOR = (By.XPATH, '//div[@class="counter-plus"]')
     ICE_CREAM_COUNT_LOCATOR = (By.CLASS_NAME, 'counter-value')
-    ORDER_BUTTON_LOCATOR = (By.XPATH, '//span[contains(text(), "Enter the number and order")]')
 
     def click_order_ice_cream(self):
         WebDriverWait(self.driver, 10).until(
@@ -164,6 +162,33 @@ class UrbanRoutesPage:
     def order_ice_cream_twice(self):
         for _ in range(2):
             self.click_order_ice_cream()
+
+
+    # Locate and input an address into the "from" field.
+    ORDER_BUTTON_LOCATOR = (By.XPATH, '//button[@class="smart-button"]')
+    CAR_SEARCH_MODAL_LOCATOR = (By.XPATH, '//div[text()="Car search"]')
+
+    def order_button(self):
+        self.driver.find_element(*self.ORDER_BUTTON_LOCATOR).click()
+
+    def get_car_search_modal(self):
+        return self.driver.find_element(*self.CAR_SEARCH_MODAL_LOCATOR).is_displayed()
+
+
+
+
+
+
+
+    """
+Locate and input an address into the "to" field.
+Locate and click on “Call a Taxi” button
+Click on the Supportive plan option.
+Enter the phone number (Need to follow the steps from test case 3)
+Add a message for the driver.
+Click "Order" button.
+"""
+
 
 
 

@@ -155,6 +155,20 @@ class TestUrbanRoutes:
         pass
 
     def test_car_search_model_appears(self):
+        self.driver.get(data.URBAN_ROUTES_URL)
+        routes_page = UrbanRoutesPage(self.driver)
+        routes_page.input_from_address(data.ADDRESS_FROM)
+        routes_page.input_to_address(data.ADDRESS_TO)
+        time.sleep(2)
+        routes_page.click_call_taxi()
+        time.sleep(2)
+        routes_page.click_supportive_plan()
+        time.sleep(2)
+        routes_page.enter_comment_input(data.MESSAGE_FOR_DRIVER)
+        time.sleep(2)
+        routes_page.order_button()
+        time.sleep(2)
+        assert routes_page.get_car_search_modal() is True
         # Add in S8
         print("function created for car search model appears")
         pass
