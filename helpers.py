@@ -38,13 +38,13 @@ def is_url_reachable(url):
         ssl_ctx.check_hostname = False
         ssl_ctx.verify_mode = ssl.CERT_NONE
 
-    with urllib.request.urlopen(url, context=ssl_ctx) as response:
-    # print("Response Status Code:", response.status) #for debugging purposes
-    if response.status == 200:
-        return True
-    else:
-        return False
+        with urllib.request.urlopen(url, context=ssl_ctx) as response:
+            # print("Response Status Code:", response.status) #for debugging purposes
+            if response.status == 200:
+                return True
+            else:
+                return False
     except Exception as e:
-    print(e)
+        print(e)
 
     return False
