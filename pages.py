@@ -14,6 +14,30 @@ class UrbanRoutesPage:
     # Address fields
     FROM_FIELD = (By.ID, 'from')
     TO_FIELD = (By.ID, 'to')
+    CALL_TAXI_BTN = (By.XPATH, "//button[@class='button round']")
+    SUPP_PLAN_BTN = (By.XPATH, "//div[text()='Supportive']")
+    SUPP_TEXT_LOCATOR = (By.XPATH, "//div[text()='Supportive']")
+    CLICK_PHONE_NUM_FIELD = (By.XPATH, "//div[@class='np-text']")
+    ENTER_PHONE_NUM = (By.XPATH, "//input[@id='phone']")
+    CLICK_NEXT_BTN = (By.XPATH, "//button[text()='Next']")
+    CODE_LOCATOR = (By.ID, "code")
+    CLICK_CONFIRM_BTN = (By.XPATH, "//button[text()='Confirm']")
+    PHONE_NUMBER_LOCATOR = (By.XPATH, "//div[@class='np-text']")
+    PAYMENT_METHOD_LOCATOR = (By.XPATH, "//div[@class='pp-value']")
+    PLUS_BTN_LOCATOR = (By.XPATH, "//img[@class='pp-plus']")
+    VALID_CARD_LOCATOR = (By.CSS_SELECTOR, "input#number.card-input[name='number']")
+    VALID_CARD_CODE_LOCATOR = (By.CSS_SELECTOR, "input#code.card-input[name='code'][placeholder='12']")
+    SIMULATE_CLICK_LOCATOR = (By.XPATH, "//div[contains(@class,'head') and normalize-space()='Adding a card']")
+    LINK_LOCATOR = (By.XPATH, "//button[@type='submit' and contains(@class,'button') and contains(@class,'full') and normalize-space()='Link']")
+    CLOSE_PAYMENT_METHOD_LOCATOR = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
+    CASH_TO_CARD_LOCATOR = (By.CSS_SELECTOR, "div.pp-value-text")
+    COMMENT_INPUT_FIELD_LOCATOR = (By.XPATH, "//input[@id='comment' and @name='comment' and @type='text']")
+    OPTION_SWITCHES_LOCATOR = (By.CLASS_NAME, 'switch')
+    OPTION_SWITCHERS_INPUTS = (By.CLASS_NAME, 'switch-input')
+    ICE_CREAM_ADD_BUTTON_LOCATOR = (By.XPATH, '//div[@class="counter-plus"]')
+    ICE_CREAM_COUNT_LOCATOR = (By.CLASS_NAME, 'counter-value')
+    ORDER_BUTTON_LOCATOR = (By.XPATH, '//button[@class="smart-button"]')
+    CAR_SEARCH_MODAL_LOCATOR = (By.XPATH, '//div[text()="Car search"]')
 
     def input_from_address(self, from_address):
         self.driver.find_element(*self.FROM_FIELD).send_keys(from_address)
@@ -28,10 +52,6 @@ class UrbanRoutesPage:
         return self.driver.find_element(*self.TO_FIELD).get_attribute('value')
 
     # Supportive Card
-    CALL_TAXI_BTN = (By.XPATH, "//button[@class='button round']")
-    SUPP_PLAN_BTN = (By.XPATH, "//div[text()='Supportive']")
-    SUPP_TEXT_LOCATOR = (By.XPATH, "//div[text()='Supportive']")
-
     def click_call_taxi(self):
         self.driver.find_element(*self.CALL_TAXI_BTN).click()
 
@@ -43,12 +63,6 @@ class UrbanRoutesPage:
         return self.driver.find_element(*self.SUPP_TEXT_LOCATOR).text
 
     #Filling in the Phone Number
-    CLICK_PHONE_NUM_FIELD = (By.XPATH, "//div[@class='np-text']")
-    ENTER_PHONE_NUM = (By.XPATH, "//input[@id='phone']")
-    CLICK_NEXT_BTN = (By.XPATH, "//button[text()='Next']")
-    CODE_LOCATOR = (By. ID, "code")
-    CLICK_CONFIRM_BTN = (By.XPATH, "//button[text()='Confirm']")
-    PHONE_NUMBER_LOCATOR = (By.XPATH, "//div[@class='np-text']")
 
     def click_enter_phone_number(self):
         self.driver.find_element(*self.CLICK_PHONE_NUM_FIELD).click()
@@ -70,15 +84,6 @@ class UrbanRoutesPage:
         return self.driver.find_element(*self.PHONE_NUMBER_LOCATOR).text
 
     # Adding a Credit Card
-    PAYMENT_METHOD_LOCATOR = (By.XPATH, "//div[@class='pp-value']")
-    PLUS_BTN_LOCATOR = (By.XPATH, "//img[@class='pp-plus']")
-    VALID_CARD_LOCATOR = (By.CSS_SELECTOR, "input#number.card-input[name='number']")
-    VALID_CARD_CODE_LOCATOR = (By.CSS_SELECTOR, "input#code.card-input[name='code'][placeholder='12']")
-    SIMULATE_CLICK_LOCATOR = (By.XPATH, "//div[contains(@class,'head') and normalize-space()='Adding a card']")
-    LINK_LOCATOR = (By. XPATH, "//button[@type='submit' and contains(@class,'button') and contains(@class,'full') and normalize-space()='Link']")
-    CLOSE_PAYMENT_METHOD_LOCATOR = (By.XPATH, '//div[@class="payment-picker open"]//button[@class="close-button section-close"]')
-    CASH_TO_CARD_LOCATOR = (By.CSS_SELECTOR, "div.pp-value-text")
-
 
     def click_payment_method(self):
         self.driver.find_element(*self.PAYMENT_METHOD_LOCATOR).click()
@@ -113,7 +118,6 @@ class UrbanRoutesPage:
 
 
     # Writing a Comment for the Driver
-    COMMENT_INPUT_FIELD_LOCATOR = (By.XPATH, "//input[@id='comment' and @name='comment' and @type='text']")
 
     def enter_comment_input(self, comment_text):
         self.driver.find_element(*self.COMMENT_INPUT_FIELD_LOCATOR).send_keys(comment_text)
@@ -123,8 +127,6 @@ class UrbanRoutesPage:
         return self.driver.find_element(*self.COMMENT_INPUT_FIELD_LOCATOR).get_attribute('value')
 
     # Ordering a Blanket and Handkerchiefs
-    OPTION_SWITCHES_LOCATOR = (By.CLASS_NAME, 'switch')
-    OPTION_SWITCHERS_INPUTS = (By.CLASS_NAME, 'switch-input')
 
     def click_blanket_and_handkerchiefs_option(self):
         switches = self.driver.find_elements(*self.OPTION_SWITCHES_LOCATOR)
@@ -136,8 +138,6 @@ class UrbanRoutesPage:
         return switches[0].get_property('checked')
 
     # Ordering 2 Ice Creams (Supportive Taxi)
-    ICE_CREAM_ADD_BUTTON_LOCATOR = (By.XPATH, '//div[@class="counter-plus"]')
-    ICE_CREAM_COUNT_LOCATOR = (By.CLASS_NAME, 'counter-value')
 
     def click_order_ice_cream(self):
         WebDriverWait(self.driver, 10).until(
@@ -165,8 +165,6 @@ class UrbanRoutesPage:
 
 
     # Locate and input an address into the "from" field.
-    ORDER_BUTTON_LOCATOR = (By.XPATH, '//button[@class="smart-button"]')
-    CAR_SEARCH_MODAL_LOCATOR = (By.XPATH, '//div[text()="Car search"]')
 
     def order_button(self):
         self.driver.find_element(*self.ORDER_BUTTON_LOCATOR).click()
