@@ -1,4 +1,4 @@
-Code Naming Guidlines
+Code Naming Guidelines
 
 - Variable names are written in snake_case and are descriptive of their purpose.
 - Constants are written in uppercase
