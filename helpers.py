@@ -7,7 +7,7 @@ def retrieve_phone_code(driver) -> str:
     import time
     from selenium.common import WebDriverException
     code = None
-    for i in range(10):
+    for _ in range(10):
         try:
             logs = [log["message"] for log in driver.get_log('performance') if log.get("message")
                     and 'api/v1/number?number' in log.get("message")]
@@ -19,10 +19,12 @@ def retrieve_phone_code(driver) -> str:
         except WebDriverException:
             time.sleep(1)
             continue
-        if not code:
-            raise Exception("No phone confirmation code found.\n"
-                            "Please use retrieve_phone_code only after the code was requested in your application.")
-        return code
+        if code:
+            return code
+        time.sleep(1)
+
+    raise Exception("No phone confirmation code found.\n"
+                    "Please use retrieve_phone_code only after the code was requested in your application.")
 
 
 # Checks if Routes is up and running. Do not change

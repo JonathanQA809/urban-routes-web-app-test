@@ -1,80 +1,71 @@
-# Urban Routes – QA Testing Project
+# Urban Routes - Selenium QA Automation
 
 ## Project Overview
-This project focuses on testing the **Urban Routes web application**, a ride-booking platform that allows users to request rides by entering pickup and destination locations.
+This project automates end-to-end tests for the Urban Routes web application, a ride-booking platform where users enter pickup and destination locations, choose a ride plan, add payment details, and place an order.
 
-The goal of this project was to validate the functionality, usability, and reliability of the application through structured **manual testing practices**.
-
-Testing activities included analyzing requirements, designing test cases, executing tests, and reporting defects.
+The automation is written with Python, Selenium, and Pytest using the Page Object Model pattern.
 
 ---
 
-## Testing Scope
-The testing process covered several key areas of the application:
+## Automated Scenarios
 
-- Ride request flow
-- Address input validation (From / To fields)
-- Phone number input validation
-- Payment method input
-- UI behavior and form validation
-- Error messages and edge cases
-
-The goal was to ensure that users could successfully request rides and that all input fields behaved according to the requirements.
-
----
-
-## Testing Activities
-During this project I performed the following QA tasks:
-
-- Analyzed product requirements
-- Created structured **test cases and checklists**
-- Executed **manual tests** on the web application
-- Verified **UI and input validation behavior**
-- Identified defects during testing
-- Reported bugs using **Jira**
+- Set pickup and destination addresses
+- Select the Supportive ride plan
+- Add and confirm a phone number
+- Add a payment card
+- Add a comment for the driver
+- Order blanket and handkerchiefs
+- Order two ice creams
+- Verify the car search modal appears
 
 ---
 
-## Testing Techniques Used
+## Project Structure
 
-- Equivalence Partitioning
-- Boundary Value Analysis
-- Positive Testing
-- Negative Testing
-- Functional Testing
-- UI Validation
+- `test_urban_routes.py` - Pytest test cases
+- `pages.py` - Page Object Model methods and locators
+- `data.py` - Test data and application URL
+- `helpers.py` - Utility functions for URL checks and SMS code retrieval
+- `requirements.txt` - Python dependencies
+
+---
+
+## Setup
+
+1. Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the tests:
+
+```bash
+pytest
+```
+
+To use a different Urban Routes environment, set the `URBAN_ROUTES_URL` environment variable before running the tests.
 
 ---
 
 ## Tools Used
 
-- **Pycharm** - Python IDE used to develop and manage the test automation code
-- **Selenium** - Browser automation tool used to simulate user interactions and test web functionality
-- **Pytest** - Testing framework used to write and execute automated test cases
-- **Jira** – Bug tracking
-- **Google Sheets** – Test cases and checklists
-- **Chrome DevTools** – UI inspection and debugging
+- Python
+- Selenium WebDriver
+- Pytest
+- Chrome DevTools
+- Git and GitHub
 
 ---
 
-## Key Deliverables
+## QA Notes
 
-This repository contains examples of:
+The tests use explicit waits through the page object instead of fixed sleeps. This makes the suite more stable because each action waits for the element state it needs, such as visibility or clickability.
 
-- Test Plan
-- Test Cases
-- Testing Checklist
-- Bug Reports
-- Test Execution Results
-
----
-
-## Objective
-
-The objective of this project was to practice real-world QA workflows and demonstrate the ability to:
-
-- Analyze product requirements
-- Design test scenarios
-- Identify defects
-- Clearly document and report bugs
-- Support the delivery of reliable software
+The phone confirmation helper reads Chrome performance logs, so Chrome is started with performance logging enabled in the test setup.
