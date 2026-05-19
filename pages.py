@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class UrbanRoutesPage:
     def __init__(self, driver):
         self.driver = driver
@@ -41,6 +42,9 @@ class UrbanRoutesPage:
     def wait_for_clickable(self, locator):
         return self.wait.until(EC.element_to_be_clickable(locator))
 
+    def wait_for_visible_elements(self, locator):
+        return self.wait.until(EC.visibility_of_all_elements_located(locator))
+
     def click_element(self, locator):
         self.wait_for_clickable(locator).click()
 
@@ -75,8 +79,7 @@ class UrbanRoutesPage:
     def get_supportive_text(self):
         return self.wait_for_visible(self.SUPP_TEXT_LOCATOR).text
 
-    #Filling in the Phone Number
-
+    # Filling in the Phone Number
     def click_enter_phone_number(self):
         self.click_element(self.CLICK_PHONE_NUM_FIELD)
 
@@ -127,9 +130,7 @@ class UrbanRoutesPage:
     def get_card_text(self):
         return self.wait_for_visible(self.CASH_TO_CARD_LOCATOR).text
 
-
     # Writing a Comment for the Driver
-
     def enter_comment_input(self, comment_text):
         self.input_text(self.COMMENT_INPUT_FIELD_LOCATOR, comment_text)
 
@@ -137,19 +138,15 @@ class UrbanRoutesPage:
         return self.wait_for_visible(self.COMMENT_INPUT_FIELD_LOCATOR).get_attribute('value')
 
     # Ordering a Blanket and Handkerchiefs
-
     def click_blanket_and_handkerchiefs_option(self):
-        self.wait_for_visible(self.OPTION_SWITCHES_LOCATOR)
-        switches = self.driver.find_elements(*self.OPTION_SWITCHES_LOCATOR)
+        switches = self.wait_for_visible_elements(self.OPTION_SWITCHES_LOCATOR)
         switches[0].click()
 
     def get_blanket_and_handkerchiefs_option_checked(self):
-        self.wait_for_visible(self.OPTION_SWITCHERS_INPUTS)
-        switches = self.driver.find_elements(*self.OPTION_SWITCHERS_INPUTS)
+        switches = self.wait_for_visible_elements(self.OPTION_SWITCHERS_INPUTS)
         return switches[0].get_property('checked')
 
     # Ordering 2 Ice Creams (Supportive Taxi)
-
     def click_order_ice_cream(self):
         self.click_element(self.ICE_CREAM_ADD_BUTTON_LOCATOR)
 
@@ -165,30 +162,13 @@ class UrbanRoutesPage:
                     digits += ch
             return int(digits) if digits else 0
 
-
     def order_ice_cream_twice(self):
         for _ in range(2):
             self.click_order_ice_cream()
-
-
-    # Locate and input an address into the "from" field.
 
     def order_button(self):
         self.click_element(self.ORDER_BUTTON_LOCATOR)
 
     def get_car_search_modal(self):
         return self.wait_for_visible(self.CAR_SEARCH_MODAL_LOCATOR).is_displayed()
-
-
-
-
-
-
-
-
-
-
-
-
-
 

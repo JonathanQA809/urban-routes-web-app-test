@@ -1,20 +1,22 @@
+import pytest
 from selenium import webdriver
-from pages import UrbanRoutesPage
+
 import data
 import helpers
+from pages import UrbanRoutesPage
 
 
 class TestUrbanRoutes:
     @classmethod
     def setup_class(cls):
+        if not helpers.is_url_reachable(data.URBAN_ROUTES_URL):
+            pytest.skip(
+                "Cannot connect to Urban Routes. Check that the server is running."
+            )
+
         options = webdriver.ChromeOptions()
         options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
         cls.driver = webdriver.Chrome(options=options)
-
-        if helpers.is_url_reachable(data.URBAN_ROUTES_URL):
-            print("Connected to the Urban Routes server")
-        else:
-            print("Cannot connect to Urban Routes. Check the server is on and still running.")
 
     def open_routes_page(self):
         self.driver.get(data.URBAN_ROUTES_URL)
@@ -43,8 +45,6 @@ class TestUrbanRoutes:
 
         assert routes_page.get_supportive_text() == "Supportive"
 
-
-
     def test_fill_phone_number(self):
         routes_page = self.open_supportive_order_form()
         routes_page.click_enter_phone_number()
@@ -52,11 +52,10 @@ class TestUrbanRoutes:
         routes_page.click_next_button()
 
         sms_code = helpers.retrieve_phone_code(self.driver)
-        routes_page.input_sms_code(str(sms_code))
+        routes_page.input_sms_code(sms_code)
         routes_page.click_confirm_button()
 
         assert routes_page.get_phone_number() == data.PHONE_NUMBER
-
 
     def test_fill_card(self):
         routes_page = self.open_route_order_form()
@@ -84,7 +83,6 @@ class TestUrbanRoutes:
 
         assert routes_page.get_blanket_and_handkerchiefs_option_checked()
 
-
     def test_order_2_ice_creams(self):
         routes_page = self.open_supportive_order_form()
         routes_page.order_ice_cream_twice()
@@ -92,13 +90,12 @@ class TestUrbanRoutes:
         count = routes_page.get_ice_cream_count()
         assert count == 2, f"Expected 2, got {count}"
 
-    def test_car_search_model_appears(self):
+    def test_car_search_modal_appears(self):
         routes_page = self.open_supportive_order_form()
         routes_page.enter_comment_input(data.MESSAGE_FOR_DRIVER)
         routes_page.order_button()
 
         assert routes_page.get_car_search_modal()
-
 
     @classmethod
     def teardown_class(cls):
